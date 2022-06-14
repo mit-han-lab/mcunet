@@ -8,6 +8,10 @@
 
 <p align="center"><a href="https://news.mit.edu/2020/iot-deep-learning-1113">[MIT News]</a> System brings deep learning to “internet of things” devices</p>
 
+## News
+
+- **(2022/06/14)** We refactor the MCUNet repo as a standalone repo.
+- Our projects are covered by: [MIT News](https://news.mit.edu/2020/iot-deep-learning-1113), [WIRED](https://www.wired.com/story/ai-algorithms-slimming-fit-fridge/), [Morning Brew](https://www.morningbrew.com/emerging-tech/stories/2020/12/07/researchers-figured-fit-ai-ever-onto-internet-things-microchips), [Stacey on IoT](https://staceyoniot.com/researchers-take-a-3-pronged-approach-to-edge-ai/), [Analytics Insight](https://www.analyticsinsight.net/amalgamating-ml-and-iot-in-smart-home-devices/), [Techable](https://techable.jp/archives/142462), etc.
 
 ## Overview
 
