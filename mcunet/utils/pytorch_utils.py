@@ -19,6 +19,17 @@ def rm_bn_from_net(net):
             del m.running_mean
             del m.running_var
 
+def rm_bn(module):
+    module_output = module
+    if isinstance(m, nn.BatchNorm2d) or isinstance(m, nn.BatchNorm1d):
+        module_output = nn.Identity()
+
+    for name, child in module.named_children():
+        module_output.add_module(name, rm_bn(child))
+    del module
+    return module_output
+    
+
 
 def get_net_device(net):
     return net.parameters().__next__().device
