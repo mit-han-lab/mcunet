@@ -5,7 +5,7 @@
 
 ## News
 
-- **(2022/06/14)** We refactor the MCUNet repo as a standalone repo.
+- **(2022/06/14)** We refactor the MCUNet repo as a standalone repo (previous repo: https://github.com/mit-han-lab/tinyml)
 - Our projects are covered by: [MIT News](https://news.mit.edu/2020/iot-deep-learning-1113), [WIRED](https://www.wired.com/story/ai-algorithms-slimming-fit-fridge/), [Morning Brew](https://www.morningbrew.com/emerging-tech/stories/2020/12/07/researchers-figured-fit-ai-ever-onto-internet-things-microchips), [Stacey on IoT](https://staceyoniot.com/researchers-take-a-3-pronged-approach-to-edge-ai/), [Analytics Insight](https://www.analyticsinsight.net/amalgamating-ml-and-iot-in-smart-home-devices/), [Techable](https://techable.jp/archives/142462), etc.
 
 
@@ -33,19 +33,13 @@ Our **TinyEngine** inference engine could be a useful infrastructure for MCU-bas
 
 ## Model Zoo
 
-We provide the searched models for ImageNet, Visual Wake Words (VWW), and Google Speech Commands for comparison. The statistics on TF-Lite Micro and TinyEngine is based on *int8 quantized* version of the model (unless otherwise stated).
+We provide the searched models for ImageNet and Visual Wake Words (VWW) for comparison. The statistics on TF-Lite Micro and TinyEngine is based on *int8 quantized* version of the model (unless otherwise stated).
 
 - **Inference engines**: we compared both [TF-Lite Micro](https://www.tensorflow.org/lite/microcontrollers) and <u>TinyEngine</u> for the on-device statistics. 
 - **Model formats**: we provide the model in both PyTorch floating-point format (with <u>json</u> definition of architecture and checkpoint (<u>ckpt</u>) for weights) and also TF-Lite int8 quantized format (<u>tflite</u>)
 - **Statistics**: we include
   - model statistics: computation (MACs), #parameters (Param), theoretial peak activation size (Act) (by summing input and output activation)
   - deployment statistics: peak SRAM usage (SRAM), Flash usage (Flash)
-
-We provide download links in the following tables. Alternatively, you can download all the checkpoints and tf-lite files at once by running:
-
-```bash
-python jobs/download_all_models.py
-```
 
 
 
@@ -84,17 +78,9 @@ Int8 quantization is the most widely used quantization and default setting in ou
 | 320kB<br />1MB | MACs: 81.8M <br />Param: 0.74M<br />Act: 333kB | SRAM: 560kB<br />Flash:  1088kB | SRAM: 293kB<br />Flash: 897kB | FP: 62.2%<br />int8:  61.8% | FP: 84.5%<br />int8: 84.2% | [json](assets/configs/mcunet-320kb-1mb_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-320kb-1mb_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-320kb-1mb_imagenet.tflite) |
 | 512kB<br />2MB | MACs: 125.9M <br />Param: 1.7M<br />Act: 413kB | SRAM: 863kB<br />Flash:  2133k | SRAM: 456kB<br />Flash: 1876kB | FP: 68.4%<br />int8: 68.0%  | FP: 88.4%<br />int8: 88.1% | [json](assets/configs/mcunet-512kb-2mb_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-512kb-2mb_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-512kb-2mb_imagenet.tflite) |
 
-##### 2. Int4 models
+##### 
 
-We can further reduce the memory usage with lower precision (int4). Notice that with int4 quantization, there will be a large accuracy drop compared to the float point models. Therefore, we have to perform quantization-aware training, and only report the quantized accuracy. 
-
-**Note**: Int4 quantization also does NOT bring further speed gain due to the instruction set. It may not be a better trade-off compared to int8 if inference latency is considered.
-
-| Constraints    | Model Stats.                                   | TinyEngine Stats.                       | Top-1 Acc.  | 
-| -------------- | ---------------------------------------------- | --------------------------------------- | ----------- | 
-| 256kB<br />1MB | MACs: 134.5M <br />Param: 1.4M<br />Act: 244kB | SRAM:  233kB<br />Flash:   1008kB<br /> | int4: 62.0% | 
-| 320kB<br />1MB | MACs: 170.0M <br />Param: 1.4M<br />Act: 295kB | SRAM:  282kB<br />Flash:   1010kB<br /> | int4: 63.5% | 
-| 512kB<br />1MB | MACs: 466.8M <br />Param: 3.3M<br />Act: 495kB | SRAM:  498kB<br />Flash:   1986kB<br /> | int4: 70.7% | 
+* We can further reduce the memory usage with lower precision like `int4` (as shonw in the paper). However, `int4` quantization also does NOT bring further speed gain compared to `int8` due to the instruction set.
 
 
 ## Testing
