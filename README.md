@@ -55,13 +55,13 @@ tflite_path = download_tflite(net_id="mcunet-320kb-in")
 To evaluate the accuracy of PyTorch `fp32` models, run:
 
 ```bash
-python eval_imagenet.py --net_id mcunet-320kb-in --data-dir PATH/TO/IMAGENET/val
+python eval_imagenet.py --net_id mcunet-320kb-in --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 To evaluate the accuracy of TF-Lite `int8` models, run:
 
 ```bash
-python eval_tflite.py --net_id mcunet-320kb-in  --data-dir PATH/TO/IMAGENET/val
+python eval_tflite.py --net_id mcunet-320kb-in --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 ### Model List
@@ -83,6 +83,18 @@ The **ImageNet** model list:
 | mcunet-256kb-in     | 67.3M  | 0.73M   | 242kB | 878kB  | 60.9%/60.3%            | 83.3%/82.6%            |
 | mcunet-320kb-in     | 81.8M  | 0.74M   | 293kB | 897kB  | 62.2%/61.8%            | 84.5%/84.2%            |
 | mcunet-512kb-in     | 125.9M | 1.73M   | 456kB | 1876kB | 68.4%/68.0%            | 88.4%/88.1%            |
+
+The **VWW** model list:
+
+*Note that the VWW dataset might be hard to prepare. You can download our pre-built `minival` set from [here](https://www.dropbox.com/s/bc7qi89ezra9711/vww-minival.tar?dl=0), around 380MB.*
+
+| net_id           | MACs  | #Params | SRAM  | Flash | Top-1<br />(fp32/int8) |
+| ---------------- | ----- | ------- | ----- | ----- | ---------------------- |
+| mcunet-10fps-vww | 6.0M  | 0.37M   | 146kB | 617kB | 87.4%/87.3%            |
+| mcunet-5fps-vww  | 11.6M | 0.43M   | 162kB | 689kB | 88.9%/88.9%            |
+| mcunet-320kb-vww | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
+
+* Note that for TF-Lite `int8` models we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
 
 ## Requirement
 

@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser()
 # net setting
 parser.add_argument('--net_id', type=str, help='net id of the model')
 # data loader setting
+parser.add_argument('--dataset', default='imagenet', type=str, choices=['imagenet', 'vww'])
 parser.add_argument('--data-dir', default=os.path.expanduser('/dataset/imagenet/val'),
                     help='path to ImageNet validation data')
 parser.add_argument('--batch-size', type=int, default=128,
@@ -34,15 +35,23 @@ def build_val_data_loader(resolution):
     normalize = transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     kwargs = {'num_workers': args.workers, 'pin_memory': True}
 
-    val_dataset = datasets.ImageFolder(args.data_dir,
-                                       transform=transforms.Compose([
-                                           transforms.Resize(int(resolution * 256 / 224)),
-                                           transforms.CenterCrop(resolution),
-                                           transforms.ToTensor(),
-                                           normalize
-                                       ]))
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False,
-                                             **kwargs)
+    if args.dataset == 'imagenet':
+        val_transform = transforms.Compose([
+            transforms.Resize(int(resolution * 256 / 224)),
+            transforms.CenterCrop(resolution),
+            transforms.ToTensor(),
+            normalize
+        ])
+    elif args.dataset == 'vww':
+        val_transform = transforms.Compose([
+            transforms.Resize((resolution, resolution)),  # if center crop, the person might be excluded
+            transforms.ToTensor(),
+            normalize
+        ])
+    else:
+        raise NotImplementedError
+    val_dataset = datasets.ImageFolder(args.data_dir, transform=val_transform)
+    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False, **kwargs)
     return val_loader
 
 
@@ -50,7 +59,6 @@ def validate(model, val_loader):
     model.eval()
     val_loss = AverageMeter()
     val_top1 = AverageMeter()
-    val_top5 = AverageMeter()
 
     with tqdm(total=len(val_loader), desc='Validate') as t:
         with torch.no_grad():
@@ -59,12 +67,10 @@ def validate(model, val_loader):
 
                 output = model(data)
                 val_loss.update(F.cross_entropy(output, target).item())
-                top1, top5 = accuracy(output, target, topk=(1, 5))
+                top1 = accuracy(output, target, topk=(1,))[0]
                 val_top1.update(top1.item(), n=data.shape[0])
-                val_top5.update(top5.item(), n=data.shape[0])
                 t.set_postfix({'loss': val_loss.avg,
-                               'top1': val_top1.avg,
-                               'top5': val_top5.avg})
+                               'top1': val_top1.avg})
                 t.update(1)
 
     return val_top1.avg
