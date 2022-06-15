@@ -96,8 +96,6 @@ The **ImageNet** model list:
 
 We thank [MIT Satori cluster](https://mit-satori.github.io/) for providing the computation resource. We thank MIT-IBM Watson AI Lab, SONY, Qualcomm, NSF CAREER Award #1943349 and NSF RAPID Award #2027266 for supporting this research.
 
-Part of the code is taken from [once-for-all](https://github.com/mit-han-lab/once-for-all) project for development.
-
 
 ## Citation
 If you find the project helpful, please consider citing our paper:
