@@ -21,7 +21,7 @@ def rm_bn_from_net(net):
 
 def rm_bn(module):
     module_output = module
-    if isinstance(m, nn.BatchNorm2d) or isinstance(m, nn.BatchNorm1d):
+    if isinstance(module, nn.BatchNorm2d) or isinstance(module, nn.BatchNorm1d):
         module_output = nn.Identity()
 
     for name, child in module.named_children():
