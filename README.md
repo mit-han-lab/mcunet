@@ -55,7 +55,7 @@ tflite_path = download_tflite(net_id="mcunet-320kb-in")
 To evaluate the accuracy of PyTorch `fp32` models, run:
 
 ```bash
-python eval_imagenet.py --net_id mcunet-320kb-in --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
+python eval_torch.py --net_id mcunet-320kb-in --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 To evaluate the accuracy of TF-Lite `int8` models, run:
@@ -94,7 +94,7 @@ The **VWW** model list:
 | mcunet-5fps-vww  | 11.6M | 0.43M   | 162kB | 689kB | 88.9%/88.9%            |
 | mcunet-320kb-vww | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
 
-* Note that for TF-Lite `int8` models we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
+For TF-Lite `int8` models we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
 
 ## Requirement
 
