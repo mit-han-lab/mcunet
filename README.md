@@ -33,21 +33,19 @@ Our **TinyEngine** inference engine could be a useful infrastructure for MCU-bas
 
 ## Model Zoo
 
-We provide the model zoo for ImageNet and Visual Wake Words (VWW). 
-
 ### Usage
 
 You can build the pre-trained PyTorch `fp32` model or the `int8` quantized model in TF-Lite format.
 
 ```python
-from mcunet.model_zoo import model_id_list, build_model, download_tflite
-print(model_id_list)  # the list of models in the model zoo
+from mcunet.model_zoo import net_id_list, build_model, download_tflite
+print(net_id_list)  # the list of models in the model zoo
 
 # pytorch fp32 model
-model, image_size, description = build_model(model_id="mcunet-320kb-in", pretrained=True)  # you can replace model_id with any other option from model_id_list
+model, image_size, description = build_model(net_id="mcunet-320kb-in", pretrained=True)  # you can replace net_id with any other option from net_id_list
 
 # download tflite file to tflite_path
-tflite_path = download_tflite(model_id="mcunet-320kb-in")
+tflite_path = download_tflite(net_id="mcunet-320kb-in")
 ```
 
 
@@ -62,62 +60,28 @@ python eval_imagenet.py --net_id mcunet-320kb-in --data-dir PATH/TO/IMAGENET/val
 To evaluate the accuracy of TF-Lite `int8` models, run:
 
 ```bash
-python eval_tflite.py \
-    --data-dir PATH/TO/IMAGENET/val \
-    --tflite_path assets/tflite/mcunet-320kb-1mb_imagenet.tflite
+python eval_tflite.py --net_id mcunet-320kb-in  --data-dir PATH/TO/IMAGENET/val
 ```
 
 ### Model List
 
 - Note that all the **latency**, **SRAM**, and **Flash** usage are profiled with **TinyEngine**.
 - Here we only provide the `int8` quantized modes. `int4` quantized models (as shown in the paper) can further push the accuracy-memory trade-off, but lacking a general format support.
+- For accuracy (top1, top-5), we report the accuracy of `fp32`/`int8` models respectively
 
-The ImageNet model list:
+The **ImageNet** model list:
 
-| net_id                                          | Model Stats.                                  | TF-Lite Stats.                | TinyEngine Stats.             | Top-1 Acc.                 | Top-5 Acc.                 | Link                                                         |
-| ----------------------------------------------- | --------------------------------------------- | ----------------------------- | ----------------------------- | -------------------------- | -------------------------- | ------------------------------------------------------------ |
-| Proxyless-s <br />for TF-Lite<br />(w0.25-r112) | MACs: 10.7M <br />Param: 0.57M<br />Act: 98kB | SRAM: 288kB<br />Flash: 860kB | SRAM: 114kB<br />Flash: 701kB | FP: 44.9%<br />int8: 43.8% | FP: 70.0%<br />int8: 69.0% | [json](assets/configs/proxyless-w0.25-r112_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/proxyless-w0.25-r112_imagenet.pth)<br />[tflite]( |
-
-
-
-### ImageNet models
-
-#### Comparison on STM32F746 (constraints: 320kB SRAM, 1MB Flash)
-
-We first compare the baseline networks (scaled ProxylessNASMobile, <u>Proxyless-s</u>) with MCUNet on STM32F746. The baseline networks are scaled to fit the hardware constraints (we compoundly scale the width and resolution of the baseline networks and report the best accuracy under the constraints).
-
-The memory usage is measured on STM32F746 board. TinyEngine can reduce the Flash and SRAM usage and fit a larger model; TinyNAS can design network that has superior accuracy under the same memory budget.
-
-| Model                                             | Model Stats.                                   | TF-Lite Stats.                                    | TinyEngine Stats.                                  | Top-1 Acc.                  | Top-5 Acc.                 | Link                                                         |
-| ------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------- | -------------------------------------------------- | --------------------------- | -------------------------- | ------------------------------------------------------------ |
-| Proxyless-s <br />for TF-Lite<br />(w0.25-r112)   | MACs: 10.7M <br />Param: 0.57M<br />Act: 98kB  | SRAM: 288kB<br />Flash: 860kB | SRAM: 114kB<br />Flash: 701kB  | FP: 44.9%<br />int8: 43.8%  | FP: 70.0%<br />int8: 69.0% | [json](assets/configs/proxyless-w0.25-r112_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/proxyless-w0.25-r112_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/proxyless-w0.25-r112_imagenet.tflite) |
-| Proxyless-s <br />for TinyEngine<br />(w0.3-r176) | MACs: 38.3M <br />Param: 0.75M<br />Act: 242kB | SRAM: 526kB<br />Flash:  1063kB | SRAM: 292kB<br />Flash: 892kB  | FP: 57.0%<br />int8:  56.2% | FP: 80.2%<br />int8: 79.7% | [json](assets/configs/proxyless-w0.3-r176_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/proxyless-w0.3-r176_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/proxyless-w0.3-r176_imagenet.tflite) |
-|                                                   |                                                |                                                   |                                                    |                             |                            |                                                              |
-| TinyNAS<br />for TinyEngine<br />(**MCUNet**)     | MACs: 81.8M <br />Param: 0.74M<br />Act: 333kB | SRAM: 560kB<br />Flash:  1088kB | SRAM: 293kB<br />Flash: 897kB | FP: 62.2%<br />int8:  61.8% | FP: 84.5%<br />int8: 84.2% | [json](assets/configs/mcunet-320kb-1mb_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-320kb-1mb_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-320kb-1mb_imagenet.tflite) |
-
-#### MCUNet under different memory constraints
-
-We provide the MCUNet models under different memory constraints:
-
-- STM32 F412 (Cortex-M4, 256kB SRAM/1MB Flash)
-- STM32 F746 (Cortex-M7, 320kB SRAM/1MB Flash)
-- STM32 H743 (Cortex-M7, 512kB SRAM/2MB Flash)
-
-The memory usage is measured on the corresponding devices.
-
-##### 1. Int8 Models
-
-Int8 quantization is the most widely used quantization and default setting in our experiments.
-
-| Constraints    | Model Stats.                                   | TF-Lite Stats.                                    | TinyEngine Stats.                                  | Top-1 Acc.                  | Top-5 Acc.                 | Link                                                         |
-| -------------- | ---------------------------------------------- | ------------------------------------------------- | -------------------------------------------------- | --------------------------- | -------------------------- | ------------------------------------------------------------ |
-| 256kB<br />1MB | MACs: 67.3M <br />Param: 0.73M<br />Act: 325kB | SRAM: 546kB<br />Flash:  1081kB | SRAM: 242kB<br />Flash: 878kB | FP: 60.9%<br />int8: 60.3%  | FP: 83.3%<br />int8: 82.6% | [json](assets/configs/mcunet-256kb-1mb_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-256kb-1mb_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-256kb-1mb_imagenet.tflite) |
-| 320kB<br />1MB | MACs: 81.8M <br />Param: 0.74M<br />Act: 333kB | SRAM: 560kB<br />Flash:  1088kB | SRAM: 293kB<br />Flash: 897kB | FP: 62.2%<br />int8:  61.8% | FP: 84.5%<br />int8: 84.2% | [json](assets/configs/mcunet-320kb-1mb_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-320kb-1mb_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-320kb-1mb_imagenet.tflite) |
-| 512kB<br />2MB | MACs: 125.9M <br />Param: 1.7M<br />Act: 413kB | SRAM: 863kB<br />Flash:  2133k | SRAM: 456kB<br />Flash: 1876kB | FP: 68.4%<br />int8: 68.0%  | FP: 88.4%<br />int8: 88.1% | [json](assets/configs/mcunet-512kb-2mb_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-512kb-2mb_imagenet.pth)<br />[tflite](https://hanlab.mit.edu/projects/tinyml/mcunet/release/mcunet-512kb-2mb_imagenet.tflite) |
-
-##### 
-
-* We can further reduce the memory usage with lower precision like `int4` (as shonw in the paper). However, `int4` quantization also does NOT bring further speed gain compared to `int8` due to the instruction set.\
+| net_id              | MACs   | #Params | SRAM  | Flash  | Top-1<br />(fp32/int8) | Top-5<br />(fp32/int8) |
+| ------------------- | ------ | ------- | ----- | ------ | ---------------------- | ---------------------- |
+| *# baseline models* |        |         |       |        |                        |                        |
+| mbv2-320kb-in       | 23.5M  | 0.75M   | 308kB | 862kB  | 49.7%/49.0%            | 74.6%/73.8%            |
+| proxyless-320kb-in  | 38.3M  | 0.75M   | 292kB | 892kB  | 57.0%/56.2%            | 80.2%/79.7%            |
+| *# mcunet models*   |        |         |       |        |                        |                        |
+| mcunet-10fps-in     | 6.4M   | 0.75M   | 266kB | 889kB  | 41.5%/40.4%            | 66.3%/65.2%            |
+| mcunet-5fps-in      | 12.8M  | 0.64M   | 307kB | 992kB  | 51.5%/49.9%            | 75.5%/74.1%            |
+| mcunet-256kb-in     | 67.3M  | 0.73M   | 242kB | 878kB  | 60.9%/60.3%            | 83.3%/82.6%            |
+| mcunet-320kb-in     | 81.8M  | 0.74M   | 293kB | 897kB  | 62.2%/61.8%            | 84.5%/84.2%            |
+| mcunet-512kb-in     | 125.9M | 1.73M   | 456kB | 1876kB | 68.4%/68.0%            | 88.4%/88.1%            |
 
 ## Requirement
 

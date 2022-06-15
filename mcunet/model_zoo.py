@@ -4,7 +4,7 @@ import torch
 from .tinynas.nn.networks import ProxylessNASNets
 from .utils import download_url
 
-__all__ = ['model_id_list', 'build_model', 'download_tflite']
+__all__ = ['net_id_list', 'build_model', 'download_tflite']
 
 """ Note: all the memory and latency profiling is done with TinyEngine """
 NET_INFO = {
@@ -43,7 +43,7 @@ NET_INFO = {
     ##### vww models (to be updated) ######
 }
 
-model_id_list = list(NET_INFO.keys())
+net_id_list = list(NET_INFO.keys())
 
 url_base = "https://hanlab.mit.edu/projects/tinyml/mcunet/release/"
 

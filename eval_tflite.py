@@ -1,21 +1,22 @@
 import os
 import argparse
 import numpy as np
+from multiprocessing import Pool
+from tqdm import tqdm
 
 import torch
 from torchvision import datasets, transforms
-
 import tensorflow as tf
+
+from mcunet.utils import accuracy
+from mcunet.model_zoo import download_tflite
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # use only cpu for tf-lite evaluation
 
-
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
-# Training settings
 parser = argparse.ArgumentParser()
-parser.add_argument('--tflite_path', default=None, help='path to tflite file for evaluation')
-
+parser.add_argument('--net_id', type=str, help='net id of the model')
 # dataset args.
 parser.add_argument('--dataset', default='imagenet', type=str)
 parser.add_argument('--data-dir', default='/dataset/imagenet/val',
@@ -60,14 +61,14 @@ def eval_image(data):
     output_data = interpreter.get_tensor(
         output_details[0]['index'])
     output = torch.from_numpy(output_data).view(1, -1)
-    from mcunet.utils import accuracy
     acc1, acc5 = accuracy(output, target.view(1), topk=(1, 5))
 
     return acc1.item(), acc5.item()
 
 
 if __name__ == '__main__':
-    interpreter = tf.lite.Interpreter(model_path=args.tflite_path)
+    tflite_path = download_tflite(net_id=args.net_id)
+    interpreter = tf.lite.Interpreter(tflite_path)
     interpreter.allocate_tensors()
 
     # get input & output tensors
@@ -78,6 +79,7 @@ if __name__ == '__main__':
     resolution = input_shape[1]
 
     # we first cache the whole test set into memory for faster data loading
+    # it can reduce the testing time from ~20min to ~2min in my experiment
     print(' * start caching the test set...', end='')
     val_loader = get_val_dataset(resolution)  # range [0, 1]
     val_loader_cache = [v for v in val_loader]
@@ -90,8 +92,6 @@ if __name__ == '__main__':
 
     # use multi-processing for faster evaluation
     n_thread = 32
-    from multiprocessing import Pool
-    from tqdm import tqdm
 
     p = Pool(n_thread)
     correctness1 = []
