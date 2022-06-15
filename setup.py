@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 from setuptools.command.install import install
 
 readme = open('README.md').read()
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 requirements = [
     "torch",
