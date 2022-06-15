@@ -9,14 +9,13 @@ import torch.nn.functional as F
 import torch.utils.data.distributed
 from torchvision import datasets, transforms
 
+from mcunet.model_zoo import build_model
 from mcunet.utils import AverageMeter, accuracy, count_net_flops, count_parameters
 
 # Training settings
 parser = argparse.ArgumentParser()
 # net setting
-parser.add_argument('-a', '--arch', metavar='ARCH', default='proxyless')
-parser.add_argument('--net_config', type=str, help='path to the net_config')
-parser.add_argument('--checkpoint', type=str, help='load from a checkpoint')
+parser.add_argument('--net_id', type=str, help='net id of the model')
 # data loader setting
 parser.add_argument('--data-dir', default=os.path.expanduser('/dataset/imagenet/val'),
                     help='path to ImageNet validation data')
@@ -31,31 +30,14 @@ torch.backends.cudnn.benchmark = True
 device = 'cuda'
 
 
-# create model
-def build_model():
-    if args.arch == 'proxyless':
-        from mcunet.tinynas.nn import ProxylessNASNets
-        with open(args.net_config) as f:
-            config = json.load(f)
-            args.resolution = config['resolution']  # register to args
-        model = ProxylessNASNets.build_from_config(config)
-    else:
-        raise NotImplementedError
-
-    sd = torch.load(args.checkpoint, map_location='cpu')
-    model.load_state_dict(sd['state_dict'])
-
-    return model
-
-
-def build_val_data_loader():
+def build_val_data_loader(resolution):
     normalize = transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     kwargs = {'num_workers': args.workers, 'pin_memory': True}
 
     val_dataset = datasets.ImageFolder(args.data_dir,
                                        transform=transforms.Compose([
-                                           transforms.Resize(int(args.resolution * 256 / 224)),
-                                           transforms.CenterCrop(args.resolution),
+                                           transforms.Resize(int(resolution * 256 / 224)),
+                                           transforms.CenterCrop(resolution),
                                            transforms.ToTensor(),
                                            normalize
                                        ]))
@@ -89,12 +71,13 @@ def validate(model, val_loader):
 
 
 def main():
-    model = build_model().to(device)
+    model, resolution, description = build_model(args.net_id, pretrained=True)
+    model = model.to(device)
     model.eval()
-    val_loader = build_val_data_loader()
+    val_loader = build_val_data_loader(resolution)
 
     # profile model
-    total_macs = count_net_flops(model, [1, 3, args.resolution, args.resolution])
+    total_macs = count_net_flops(model, [1, 3, resolution, resolution])
     total_params = count_parameters(model)
     print(' * FLOPs: {:.4}M, param: {:.4}M'.format(total_macs / 1e6, total_params / 1e6))
 

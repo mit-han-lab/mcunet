@@ -33,13 +33,50 @@ Our **TinyEngine** inference engine could be a useful infrastructure for MCU-bas
 
 ## Model Zoo
 
-We provide the searched models for ImageNet and Visual Wake Words (VWW) for comparison. The statistics on TF-Lite Micro and TinyEngine is based on *int8 quantized* version of the model (unless otherwise stated).
+We provide the model zoo for ImageNet and Visual Wake Words (VWW). 
 
-- **Inference engines**: we compared both [TF-Lite Micro](https://www.tensorflow.org/lite/microcontrollers) and <u>TinyEngine</u> for the on-device statistics. 
-- **Model formats**: we provide the model in both PyTorch floating-point format (with <u>json</u> definition of architecture and checkpoint (<u>ckpt</u>) for weights) and also TF-Lite int8 quantized format (<u>tflite</u>)
-- **Statistics**: we include
-  - model statistics: computation (MACs), #parameters (Param), theoretial peak activation size (Act) (by summing input and output activation)
-  - deployment statistics: peak SRAM usage (SRAM), Flash usage (Flash)
+### Usage
+
+You can build the pre-trained PyTorch `fp32` model or the `int8` quantized model in TF-Lite format.
+
+```python
+from mcunet.model_zoo import model_id_list, build_model, download_tflite
+print(model_id_list)  # the list of models in the model zoo
+
+# pytorch fp32 model
+model, image_size, description = build_model(model_id="mcunet-320kb-in", pretrained=True)  # you can replace model_id with any other option from model_id_list
+
+# download tflite file to tflite_path
+tflite_path = download_tflite(model_id="mcunet-320kb-in")
+```
+
+
+### Evaluate
+
+To evaluate the accuracy of PyTorch `fp32` models, run:
+
+```bash
+python eval_imagenet.py --net_id mcunet-320kb-in --data-dir PATH/TO/IMAGENET/val
+```
+
+To evaluate the accuracy of TF-Lite `int8` models, run:
+
+```bash
+python eval_tflite.py \
+    --data-dir PATH/TO/IMAGENET/val \
+    --tflite_path assets/tflite/mcunet-320kb-1mb_imagenet.tflite
+```
+
+### Model List
+
+- Note that all the **latency**, **SRAM**, and **Flash** usage are profiled with **TinyEngine**.
+- Here we only provide the `int8` quantized modes. `int4` quantized models (as shown in the paper) can further push the accuracy-memory trade-off, but lacking a general format support.
+
+The ImageNet model list:
+
+| net_id                                          | Model Stats.                                  | TF-Lite Stats.                | TinyEngine Stats.             | Top-1 Acc.                 | Top-5 Acc.                 | Link                                                         |
+| ----------------------------------------------- | --------------------------------------------- | ----------------------------- | ----------------------------- | -------------------------- | -------------------------- | ------------------------------------------------------------ |
+| Proxyless-s <br />for TF-Lite<br />(w0.25-r112) | MACs: 10.7M <br />Param: 0.57M<br />Act: 98kB | SRAM: 288kB<br />Flash: 860kB | SRAM: 114kB<br />Flash: 701kB | FP: 44.9%<br />int8: 43.8% | FP: 70.0%<br />int8: 69.0% | [json](assets/configs/proxyless-w0.25-r112_imagenet.json)<br />[ckpt](https://hanlab.mit.edu/projects/tinyml/mcunet/release/proxyless-w0.25-r112_imagenet.pth)<br />[tflite]( |
 
 
 
@@ -80,31 +117,7 @@ Int8 quantization is the most widely used quantization and default setting in ou
 
 ##### 
 
-* We can further reduce the memory usage with lower precision like `int4` (as shonw in the paper). However, `int4` quantization also does NOT bring further speed gain compared to `int8` due to the instruction set.
-
-
-## Testing
-
-We provide the script to test the accuracy of models, both the float-point models in Pytorch and int8 models in TF-Lite format.
-
-To evaluate the accuracy of **PyTorch** models, run:
-
-```bash
-python jobs/eval_imagenet.py \
-    --data-dir PATH/TO/IMAGENET/val \
-    --net_config assets/configs/mcunet-320kb-1mb_imagenet.json \
-    --checkpoint assets/pt_ckpt/mcunet-320kb-1mb_imagenet.pth
-```
-
-To evaluate the accuracy of int8 **TF-Lite** models, run:
-
-```bash
-python jobs/eval_tflite.py \
-    --data-dir PATH/TO/IMAGENET/val \
-    --tflite_path assets/tflite/mcunet-320kb-1mb_imagenet.tflite
-```
-
-
+* We can further reduce the memory usage with lower precision like `int4` (as shonw in the paper). However, `int4` quantization also does NOT bring further speed gain compared to `int8` due to the instruction set.\
 
 ## Requirement
 
@@ -112,9 +125,8 @@ python jobs/eval_tflite.py \
 
 - PyTorch 1.4.0+
 
-- Tensorflow 1.15 (CPU only)
+- Tensorflow 1.15 (if you want to test TF-Lite models; CPU support only)
 
-  
 ## Acknowledgement
 
 We thank [MIT Satori cluster](https://mit-satori.github.io/) for providing the computation resource. We thank MIT-IBM Watson AI Lab, SONY, Qualcomm, NSF CAREER Award #1943349 and NSF RAPID Award #2027266 for supporting this research.
@@ -133,9 +145,15 @@ If you find the project helpful, please consider citing our paper:
   volume={33},
   year={2020}
 }
+
+@inproceedings{
+  lin2021mcunetv2,
+  title={MCUNetV2: Memory-Efficient Patch-based Inference for Tiny Deep Learning},
+  author={Lin, Ji and Chen, Wei-Ming and Cai, Han and Gan, Chuang and Han, Song},
+  booktitle={Annual Conference on Neural Information Processing Systems (NeurIPS)},
+  year={2021}
+} 
 ```
-
-
 
 
 ## Related Projects

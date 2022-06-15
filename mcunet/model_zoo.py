@@ -4,11 +4,11 @@ import torch
 from .tinynas.nn.networks import ProxylessNASNets
 from .utils import download_url
 
-__all__ = ['model_id_list', 'build_model']
+__all__ = ['model_id_list', 'build_model', 'download_tflite']
 
 """ Note: all the memory and latency profiling is done with TinyEngine """
 NET_INFO = {
-    ### imagenet models
+    ##### imagenet models ######
     # mcunet models
     'mcunet-10fps-in': {
         'net_name': 'mcunet-10fps_imagenet',
@@ -40,14 +40,15 @@ NET_INFO = {
         'description': 'scaled ProxylessNet that fits 320KB SRAM and 1MB Flash (ImageNet)'
     },
 
-    # """ vww models (to be updated) """
+    ##### vww models (to be updated) ######
 }
 
 model_id_list = list(NET_INFO.keys())
 
+url_base = "https://hanlab.mit.edu/projects/tinyml/mcunet/release/"
+
 
 def build_model(net_id, pretrained=True):
-    url_base = "https://hanlab.mit.edu/projects/tinyml/mcunet/release/"
     assert net_id in NET_INFO, 'Invalid net_id! Select one from {})'.format(list(NET_INFO.keys()))
     net_info = NET_INFO[net_id]
 
@@ -61,4 +62,11 @@ def build_model(net_id, pretrained=True):
     if pretrained:
         sd = torch.load(download_url(sd_url), map_location='cpu')
         model.load_state_dict(sd['state_dict'])
-    return model, resolution
+    return model, resolution, net_info['description']
+
+
+def download_tflite(net_id):
+    assert net_id in NET_INFO, 'Invalid net_id! Select one from {})'.format(list(NET_INFO.keys()))
+    net_info = NET_INFO[net_id]
+    tflite_url = url_base + net_info['net_name'] + ".tflite"
+    return download_url(tflite_url)  # the file path of the downloaded tflite model
