@@ -41,6 +41,18 @@ NET_INFO = {
     },
 
     ##### vww models (to be updated) ######
+    'mcunet-10fps-vww': {
+        'net_name': 'mcunet-10fps_vww',
+        'description': 'MCUNet model that runs 10fps on STM32F746 (VWW)'
+    },
+    'mcunet-5fps-vww': {
+        'net_name': 'mcunet-5fps_vww',
+        'description': 'MCUNet model that runs 5fps on STM32F746 (VWW)'
+    },
+    'mcunet-320kb-vww': {
+        'net_name': 'mcunet-320kb-1mb_vww',
+        'description': 'MCUNet model that fits 320KB SRAM and 1MB Flash (VWW)'
+    }
 }
 
 net_id_list = list(NET_INFO.keys())

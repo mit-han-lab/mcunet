@@ -33,15 +33,19 @@ def get_val_dataset(resolution):
     # NOTE: we do not use normalization for tf-lite evaluation; the input is normalized to 0-1
     kwargs = {'num_workers': args.workers, 'pin_memory': False}
     if args.dataset == 'imagenet':
-        val_dataset = \
-            datasets.ImageFolder(args.data_dir,
-                                 transform=transforms.Compose([
-                                     transforms.Resize(int(resolution * 256 / 224)),
-                                     transforms.CenterCrop(resolution),
-                                     transforms.ToTensor(),
-                                 ]))
+        val_transform = transforms.Compose([
+            transforms.Resize(int(resolution * 256 / 224)),
+            transforms.CenterCrop(resolution),
+            transforms.ToTensor(),
+        ])
+    elif args.dataset == 'vww':
+        val_transform = transforms.Compose([
+            transforms.Resize((resolution, resolution)),  # if center crop, the person might be excluded
+            transforms.ToTensor(),
+        ])
     else:
         raise NotImplementedError
+    val_dataset = datasets.ImageFolder(args.data_dir, transform=val_transform)
     val_loader = torch.utils.data.DataLoader(
         val_dataset, batch_size=args.batch_size,
         shuffle=False, **kwargs)
@@ -61,9 +65,8 @@ def eval_image(data):
     output_data = interpreter.get_tensor(
         output_details[0]['index'])
     output = torch.from_numpy(output_data).view(1, -1)
-    acc1, acc5 = accuracy(output, target.view(1), topk=(1, 5))
-
-    return acc1.item(), acc5.item()
+    is_correct = torch.argmax(output, dim=1).item() == target.item()
+    return is_correct
 
 
 if __name__ == '__main__':
@@ -94,19 +97,15 @@ if __name__ == '__main__':
     n_thread = 32
 
     p = Pool(n_thread)
-    correctness1 = []
-    correctness5 = []
+    correctness = []
 
     pbar = tqdm(p.imap_unordered(eval_image, val_loader_cache), total=len(val_loader_cache),
                 desc='Evaluating...')
-    for idx, (acc1, acc5) in enumerate(pbar):
-        correctness1.append(acc1)
-        correctness5.append(acc5)
+    for idx, correct in enumerate(pbar):
+        correctness.append(correct)
         pbar.set_postfix({
-            'top1': sum(correctness1) / len(correctness1),
-            'top5': sum(correctness5) / len(correctness5),
+            'top1': sum(correctness) / len(correctness) * 100,
         })
-    print('* top1: {:.2f}%, top5: {:.2f}%'.format(
-        sum(correctness1) / len(correctness1),
-        sum(correctness5) / len(correctness5)
+    print('* top1: {:.2f}%'.format(
+        sum(correctness) / len(correctness) * 100,
     ))
