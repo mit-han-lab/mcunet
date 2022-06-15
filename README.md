@@ -14,21 +14,21 @@
 
 Microcontrollers are low-cost, low-power hardware. They are widely deployed and have wide applications.
 
-![teaser](assets/figures/applications.png)
+![teaser](https://github.com/mit-han-lab/mcunet/blob/master/assets/figures/applications.png)
 
 But the tight memory budget (50,000x smaller than GPUs) makes deep learning deployment difficult.
 
-![teaser](assets/figures/memory_size.png)
+![teaser](https://github.com/mit-han-lab/mcunet/blob/master/assets/figures/memory_size.png)
 
 MCUNet is a **system-algorithm co-design** framework for tiny deep learning on microcontrollers. It consists of **TinyNAS** and **TinyEngine**. They are co-designed to fit the tight memory budgets.
 
 With system-algorithm co-design, we can significantly improve the deep learning performance on the same tiny memory budget.
 
-![teaser](assets/figures/overview.png)
+![teaser](https://github.com/mit-han-lab/mcunet/raw/master/assets/figures/overview.png)
 
 Our **TinyEngine** inference engine could be a useful infrastructure for MCU-based AI applications. It significantly **improves the inference speed and reduces the memory usage** compared to existing libraries like [TF-Lite Micro](https://www.tensorflow.org/lite/microcontrollers), [CMSIS-NN](https://arxiv.org/abs/1801.06601), [MicroTVM](https://tvm.apache.org/2020/06/04/tinyml-how-tvm-is-taming-tiny), etc. It improves the inference speed by **1.5-3x**, and reduces the peak memory by **2.7-4.8x**.
 
-![teaser](assets/figures/latency_mem.png)
+![teaser](https://github.com/mit-han-lab/mcunet/blob/master/assets/figures/latency_mem.png)
 
 
 
