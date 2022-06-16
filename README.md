@@ -2,6 +2,8 @@
 
 ###  [website](http://mcunet.mit.edu/) | [paper](https://arxiv.org/abs/2007.10319) | [paper (v2)](https://arxiv.org/abs/2110.15352) | [demo](https://www.youtube.com/watch?v=YvioBgtec4U&feature=emb_logo)
 
+![demo](assets/figures/mcunet_demo.gif)
+
 ## News
 
 We will soon release TinyEngine. **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
