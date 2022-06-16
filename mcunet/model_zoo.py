@@ -10,32 +10,32 @@ __all__ = ['net_id_list', 'build_model', 'download_tflite']
 NET_INFO = {
     ##### imagenet models ######
     # mcunet models
-    'mcunet-10fps-in': {
+    'mcunet-10fps': {
         'net_name': 'mcunet-10fps_imagenet',
         'description': 'MCUNet model that runs 10fps on STM32F746 (ImageNet)'
     },
-    'mcunet-5fps-in': {
+    'mcunet-5fps': {
         'net_name': 'mcunet-5fps_imagenet',
         'description': 'MCUNet model that runs 5fps on STM32F746 (ImageNet)'
     },
-    'mcunet-256kb-in': {
+    'mcunet-256kb': {
         'net_name': 'mcunet-256kb-1mb_imagenet',
         'description': 'MCUNet model that fits 256KB SRAM and 1MB Flash (ImageNet)',
     },
-    'mcunet-320kb-in': {
+    'mcunet-320kb': {
         'net_name': 'mcunet-320kb-1mb_imagenet',
         'description': 'MCUNet model that fits 320KB SRAM and 1MB Flash (ImageNet)',
     },
-    'mcunet-512kb-in': {
+    'mcunet-512kb': {
         'net_name': 'mcunet-512kb-2mb_imagenet',
         'description': 'MCUNet model that fits 512KB SRAM and 2MB Flash (ImageNet)',
     },
     # baseline models
-    'mbv2-320kb-in': {
+    'mbv2-320kb': {
         'net_name': 'mbv2-w0.35-r144_imagenet',
         'description': 'scaled MobileNetV2 that fits 320KB SRAM and 1MB Flash (ImageNet)',
     },
-    'proxyless-320kb-in': {
+    'proxyless-320kb': {
         'net_name': 'proxyless-w0.3-r176_imagenet',
         'description': 'scaled ProxylessNet that fits 320KB SRAM and 1MB Flash (ImageNet)'
     },
