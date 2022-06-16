@@ -1,14 +1,15 @@
 # MCUNet: Tiny Deep Learning on IoT Devices 
 
-###  [website](http://mcunet.mit.edu/) | [paper](https://arxiv.org/abs/2007.10319) | [demo](https://www.youtube.com/watch?v=YvioBgtec4U&feature=emb_logo)
+###  [website](http://mcunet.mit.edu/) | [paper](https://arxiv.org/abs/2007.10319) | [paper (v2)](https://arxiv.org/abs/2110.15352) | [demo](https://www.youtube.com/watch?v=YvioBgtec4U&feature=emb_logo)
 
 ## News
 
-We will soon release the support for TinyEngine. **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
+We will soon release TinyEngine. **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
 - **(2022/06)** We refactor the MCUNet repo as a standalone repo (previous repo: https://github.com/mit-han-lab/tinyml)
-- **(2021/10)** Checkout our new paper **MCUNetV2**: https://arxiv.org/abs/2110.15352 !
-- Our projects are covered by: [MIT News](https://news.mit.edu/2020/iot-deep-learning-1113), [WIRED](https://www.wired.com/story/ai-algorithms-slimming-fit-fridge/), [Morning Brew](https://www.morningbrew.com/emerging-tech/stories/2020/12/07/researchers-figured-fit-ai-ever-onto-internet-things-microchips), [Stacey on IoT](https://staceyoniot.com/researchers-take-a-3-pronged-approach-to-edge-ai/), [Analytics Insight](https://www.analyticsinsight.net/amalgamating-ml-and-iot-in-smart-home-devices/), [Techable](https://techable.jp/archives/142462), etc.
+- **(2021/10)** **MCUNetV2** is accepted to NeurIPS 2021: https://arxiv.org/abs/2110.15352 !
+- **(2020/10)** **MCUNet** is accepted to NeurIPS 2020 as **spotlight**: https://arxiv.org/abs/2007.10319 !
+- Our projects are covered by: [MIT News](https://news.mit.edu/2020/iot-deep-learning-1113), [MIT News (v2)](https://news.mit.edu/2021/tiny-machine-learning-design-alleviates-bottleneck-memory-usage-iot-devices-1208), [WIRED](https://www.wired.com/story/ai-algorithms-slimming-fit-fridge/), [Morning Brew](https://www.morningbrew.com/emerging-tech/stories/2020/12/07/researchers-figured-fit-ai-ever-onto-internet-things-microchips), [Stacey on IoT](https://staceyoniot.com/researchers-take-a-3-pronged-approach-to-edge-ai/), [Analytics Insight](https://www.analyticsinsight.net/amalgamating-ml-and-iot-in-smart-home-devices/), [Techable](https://techable.jp/archives/142462), etc.
 
 
 ## Overview

@@ -8,7 +8,6 @@ import torch
 from torchvision import datasets, transforms
 import tensorflow as tf
 
-from mcunet.utils import accuracy
 from mcunet.model_zoo import download_tflite
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # use only cpu for tf-lite evaluation
