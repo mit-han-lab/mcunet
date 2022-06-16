@@ -45,10 +45,10 @@ from mcunet.model_zoo import net_id_list, build_model, download_tflite
 print(net_id_list)  # the list of models in the model zoo
 
 # pytorch fp32 model
-model, image_size, description = build_model(net_id="mcunet-320kb", pretrained=True)  # you can replace net_id with any other option from net_id_list
+model, image_size, description = build_model(net_id="mcunet-320kB", pretrained=True)  # you can replace net_id with any other option from net_id_list
 
 # download tflite file to tflite_path
-tflite_path = download_tflite(net_id="mcunet-320kb")
+tflite_path = download_tflite(net_id="mcunet-320kB")
 ```
 
 
@@ -57,18 +57,18 @@ tflite_path = download_tflite(net_id="mcunet-320kb")
 To evaluate the accuracy of PyTorch `fp32` models, run:
 
 ```bash
-python eval_torch.py --net_id mcunet-320kb --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
+python eval_torch.py --net_id mcunet-320kB --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 To evaluate the accuracy of TF-Lite `int8` models, run:
 
 ```bash
-python eval_tflite.py --net_id mcunet-320kb --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
+python eval_tflite.py --net_id mcunet-320kB --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 ### Model List
 
-- Note that all the **latency**, **SRAM**, and **Flash** usage are profiled with **TinyEngine**.
+- Note that all the **latency**, **SRAM**, and **Flash** usage are profiled with **TinyEngine** on STM32F746.
 - Here we only provide the `int8` quantized modes. `int4` quantized models (as shown in the paper) can further push the accuracy-memory trade-off, but lacking a general format support.
 - For accuracy (top1, top-5), we report the accuracy of `fp32`/`int8` models respectively
 
@@ -77,14 +77,14 @@ The **ImageNet** model list:
 | net_id              | MACs   | #Params | SRAM  | Flash  | Top-1<br />(fp32/int8) | Top-5<br />(fp32/int8) |
 | ------------------- | ------ | ------- | ----- | ------ | ---------------------- | ---------------------- |
 | *# baseline models* |        |         |       |        |                        |                        |
-| mbv2-320kb          | 23.5M  | 0.75M   | 308kB | 862kB  | 49.7%/49.0%            | 74.6%/73.8%            |
-| proxyless-320kb     | 38.3M  | 0.75M   | 292kB | 892kB  | 57.0%/56.2%            | 80.2%/79.7%            |
+| mbv2-320kB          | 23.5M  | 0.75M   | 308kB | 862kB  | 49.7%/49.0%            | 74.6%/73.8%            |
+| proxyless-320kB     | 38.3M  | 0.75M   | 292kB | 892kB  | 57.0%/56.2%            | 80.2%/79.7%            |
 | *# mcunet models*   |        |         |       |        |                        |                        |
 | mcunet-10fps        | 6.4M   | 0.75M   | 266kB | 889kB  | 41.5%/40.4%            | 66.3%/65.2%            |
 | mcunet-5fps         | 12.8M  | 0.64M   | 307kB | 992kB  | 51.5%/49.9%            | 75.5%/74.1%            |
-| mcunet-256kb        | 67.3M  | 0.73M   | 242kB | 878kB  | 60.9%/60.3%            | 83.3%/82.6%            |
-| mcunet-320kb        | 81.8M  | 0.74M   | 293kB | 897kB  | 62.2%/61.8%            | 84.5%/84.2%            |
-| mcunet-512kb        | 125.9M | 1.73M   | 456kB | 1876kB | 68.4%/68.0%            | 88.4%/88.1%            |
+| mcunet-256kB        | 67.3M  | 0.73M   | 242kB | 878kB  | 60.9%/60.3%            | 83.3%/82.6%            |
+| mcunet-320kB        | 81.8M  | 0.74M   | 293kB | 897kB  | 62.2%/61.8%            | 84.5%/84.2%            |
+| mcunet-512kB        | 125.9M | 1.73M   | 456kB | 1876kB | 68.4%/68.0%            | 88.4%/88.1%            |
 
 The **VWW** model list:
 
@@ -94,7 +94,7 @@ The **VWW** model list:
 | ---------------- | ----- | ------- | ----- | ----- | ---------------------- |
 | mcunet-10fps-vww | 6.0M  | 0.37M   | 146kB | 617kB | 87.4%/87.3%            |
 | mcunet-5fps-vww  | 11.6M | 0.43M   | 162kB | 689kB | 88.9%/88.9%            |
-| mcunet-320kb-vww | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
+| mcunet-320kB-vww | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
 
 For TF-Lite `int8` models we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
 

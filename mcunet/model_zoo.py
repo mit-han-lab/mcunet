@@ -18,24 +18,24 @@ NET_INFO = {
         'net_name': 'mcunet-5fps_imagenet',
         'description': 'MCUNet model that runs 5fps on STM32F746 (ImageNet)'
     },
-    'mcunet-256kb': {
+    'mcunet-256kB': {
         'net_name': 'mcunet-256kb-1mb_imagenet',
         'description': 'MCUNet model that fits 256KB SRAM and 1MB Flash (ImageNet)',
     },
-    'mcunet-320kb': {
+    'mcunet-320kB': {
         'net_name': 'mcunet-320kb-1mb_imagenet',
         'description': 'MCUNet model that fits 320KB SRAM and 1MB Flash (ImageNet)',
     },
-    'mcunet-512kb': {
+    'mcunet-512kB': {
         'net_name': 'mcunet-512kb-2mb_imagenet',
         'description': 'MCUNet model that fits 512KB SRAM and 2MB Flash (ImageNet)',
     },
     # baseline models
-    'mbv2-320kb': {
+    'mbv2-320kB': {
         'net_name': 'mbv2-w0.35-r144_imagenet',
         'description': 'scaled MobileNetV2 that fits 320KB SRAM and 1MB Flash (ImageNet)',
     },
-    'proxyless-320kb': {
+    'proxyless-320kB': {
         'net_name': 'proxyless-w0.3-r176_imagenet',
         'description': 'scaled ProxylessNet that fits 320KB SRAM and 1MB Flash (ImageNet)'
     },
@@ -49,7 +49,7 @@ NET_INFO = {
         'net_name': 'mcunet-5fps_vww',
         'description': 'MCUNet model that runs 5fps on STM32F746 (VWW)'
     },
-    'mcunet-320kb-vww': {
+    'mcunet-320kB-vww': {
         'net_name': 'mcunet-320kb-1mb_vww',
         'description': 'MCUNet model that fits 320KB SRAM and 1MB Flash (VWW)'
     }
