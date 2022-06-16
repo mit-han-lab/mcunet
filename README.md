@@ -2,8 +2,9 @@
 
 ###  [website](http://mcunet.mit.edu/) | [paper](https://arxiv.org/abs/2007.10319) | [demo](https://www.youtube.com/watch?v=YvioBgtec4U&feature=emb_logo)
 
-
 ## News
+
+We will soon release the support for TinyEngine. **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
 - **(2022/06)** We refactor the MCUNet repo as a standalone repo (previous repo: https://github.com/mit-han-lab/tinyml)
 - **(2021/10)** Checkout our new paper **MCUNetV2**: https://arxiv.org/abs/2110.15352 !
