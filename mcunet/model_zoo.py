@@ -40,7 +40,7 @@ NET_INFO = {
         'description': 'scaled ProxylessNet that fits 320KB SRAM and 1MB Flash (ImageNet)'
     },
 
-    ##### vww models (to be updated) ######
+    ##### vww models ######
     'mcunet-10fps-vww': {
         'net_name': 'mcunet-10fps_vww',
         'description': 'MCUNet model that runs 10fps on STM32F746 (VWW)'
