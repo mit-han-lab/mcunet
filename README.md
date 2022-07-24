@@ -10,6 +10,7 @@ This is the official implementation of the MCUNet series.
 
 We will soon release TinyEngine. **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
+- **(2022/07)** We also include the person detection model used in the video demo above. We will also include the deployment code in TinyEngine release. 
 - **(2022/06)** We refactor the MCUNet repo as a standalone repo (previous repo: https://github.com/mit-han-lab/tinyml)
 - **(2021/10)** **MCUNetV2** is accepted to NeurIPS 2021: https://arxiv.org/abs/2110.15352 !
 - **(2020/10)** **MCUNet** is accepted to NeurIPS 2020 as **spotlight**: https://arxiv.org/abs/2007.10319 !
@@ -101,6 +102,16 @@ The **VWW** model list:
 | mcunet-320kB-vww | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
 
 For TF-Lite `int8` models we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
+
+### Detection Model
+
+We also share the person detection model used in the [demo](https://www.youtube.com/watch?v=F4XKn0iDfxg). To visualize the model's prediction on a sample image, please run the following command:
+
+```bash
+python eval_det.py
+```
+
+The model takes in a small input resolution of 128x160 to reduce memory usage. It does not achieve state-of-the-art performance due to the limited image and model size, but should provide decent performane for tinyML applications (please check the demo for a video recording). We will also share the deployment code in the upcoming TinyEngine release. 
 
 ## Requirement
 
