@@ -52,7 +52,13 @@ NET_INFO = {
     'mcunet-320kB-vww': {
         'net_name': 'mcunet-320kb-1mb_vww',
         'description': 'MCUNet model that fits 320KB SRAM and 1MB Flash (VWW)'
-    }
+    },
+
+    ##### detection demo model ######
+    'person-det': {
+        'net_name': 'person-det',
+        'description': 'person detection model used in our demo'
+    },
 }
 
 net_id_list = list(NET_INFO.keys())
