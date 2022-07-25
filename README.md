@@ -101,7 +101,7 @@ The **VWW** model list:
 | mcunet-5fps-vww  | 11.6M | 0.43M   | 162kB | 689kB | 88.9%/88.9%            |
 | mcunet-320kB-vww | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
 
-For TF-Lite `int8` models we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
+For TF-Lite `int8` models, we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
 
 ### Detection Model
 
@@ -111,9 +111,9 @@ We also share the person detection model used in the [demo](https://www.youtube.
 python eval_det.py
 ```
 
-It will visualize the prediction here: `assets/sample_images/person_det.jpg`.
+It will visualize the prediction here: `assets/sample_images/person_det_vis.jpg`.
 
-The model takes in a small input resolution of 128x160 to reduce memory usage. It does not achieve state-of-the-art performance due to the limited image and model size, but should provide decent performane for tinyML applications (please check the demo for a video recording). We will also share the deployment code in the upcoming TinyEngine release. 
+The model takes in a small input resolution of 128x160 to reduce memory usage. It does not achieve state-of-the-art performance due to the limited image and model size but should provide decent performance for tinyML applications (please check the demo for a video recording). We will also release the deployment code in the upcoming TinyEngine release. 
 
 ## Requirement
 
