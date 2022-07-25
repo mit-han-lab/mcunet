@@ -2,7 +2,9 @@ import torch
 import torch.nn as nn
 import numpy as np
 
-__all__ = ['standard_nms', 'StandardNMS', 'MergeNMS']
+# Some of the code is adapted from gluoncv: https://cv.gluon.ai/model_zoo/detection.html
+
+__all__ = ['standard_nms', 'StandardNMS', 'MergeNMS', 'Yolo3Output']
 
 
 def bbox_iou(box1: torch.Tensor, box2: torch.Tensor, offset=0) -> torch.Tensor:
