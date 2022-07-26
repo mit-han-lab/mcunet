@@ -125,7 +125,7 @@ The model takes in a small input resolution of 128x160 to reduce memory usage. I
 
 ## Acknowledgement
 
-We thank [MIT Satori cluster](https://mit-satori.github.io/) for providing the computation resource. We thank MIT-IBM Watson AI Lab, SONY, Qualcomm, NSF CAREER Award #1943349 and NSF RAPID Award #2027266 for supporting this research.
+We thank MIT-IBM Watson AI Lab, Intel, Amazon, SONY, Qualcomm, NSF for supporting this research.
 
 
 ## Citation
@@ -151,6 +151,8 @@ If you find the project helpful, please consider citing our paper:
 
 
 ## Related Projects
+
+[On-Device Training Under 256KB Memory](https://tinytraining.mit.edu)
 
 [TinyTL: Reduce Memory, Not Parameters for Efficient On-Device Learning](https://arxiv.org/abs/2007.11622) (NeurIPS'20)
 
