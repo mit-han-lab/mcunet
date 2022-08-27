@@ -8,8 +8,9 @@ This is the official implementation of the MCUNet series.
 
 ## News
 
-We will soon release TinyEngine. **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
+**If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
+- **(2022/08)** We release the source code of TinyEngine in [this repo](https://github.com/mit-han-lab/tinyengine). Please take a look!
 - **(2022/07)** We also include the person detection model used in the video demo above. We will also include the deployment code in TinyEngine release. 
 - **(2022/06)** We refactor the MCUNet repo as a standalone repo (previous repo: https://github.com/mit-han-lab/tinyml)
 - **(2021/10)** **MCUNetV2** is accepted to NeurIPS 2021: https://arxiv.org/abs/2110.15352 !
