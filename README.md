@@ -10,6 +10,7 @@ This is the official implementation of the MCUNet series.
 
 **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
+- **(2022/09)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is accepted to NeurIPS 2022! It enables tiny on-device training for IoT devices [[demo](https://www.youtube.com/watch?v=XaDCO8YtmBw)]. 
 - **(2022/08)** We release the source code of **TinyEngine** in [this repo](https://github.com/mit-han-lab/tinyengine). Please take a look!
 - **(2022/08)** Our new course on **TinyML and Efficient Deep Learning** will be released soon in September 2022: [efficientml.ai](https://efficientml.ai/).
 - **(2022/07)** We also include the person detection model used in the video demo above. We will also include the deployment code in TinyEngine release. 
