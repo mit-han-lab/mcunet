@@ -359,7 +359,7 @@ class OFAProxylessNASNets(ProxylessNASNets):
                 input_channel = stage_blocks[-1].mobile_inverted_conv.out_channels
             blocks += stage_blocks
 
-        feature_mix_layer = get_or_copy_subnet(self.feature_mix_layer, input_channel=input_channel)
+        feature_mix_layer = get_or_copy_subnet(self.feature_mix_layer, in_channel=input_channel)
         input_channel = feature_mix_layer.out_channels if feature_mix_layer is not None else input_channel
         classifier = get_or_copy_subnet(self.classifier, in_features=input_channel)
 
