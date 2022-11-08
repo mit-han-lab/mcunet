@@ -151,12 +151,21 @@ If you find the project helpful, please consider citing our paper:
   booktitle={Annual Conference on Neural Information Processing Systems (NeurIPS)},
   year={2021}
 } 
+
+@article{
+  lin2022ondevice, 
+  title = {On-Device Training Under 256KB Memory},
+  author = {Lin, Ji and Zhu, Ligeng and Chen, Wei-Ming and Wang, Wei-Chen and Gan, Chuang and Han, Song}, 
+  journal = {arXiv:2206.15472 [cs]},
+  url = {https://arxiv.org/abs/2206.15472},
+  year = {2022}
+}
 ```
 
 
 ## Related Projects
 
-[On-Device Training Under 256KB Memory](https://tinytraining.mit.edu)
+[On-Device Training Under 256KB Memory](https://tinytraining.mit.edu) (NeurIPS'22)
 
 [TinyTL: Reduce Memory, Not Parameters for Efficient On-Device Learning](https://arxiv.org/abs/2007.11622) (NeurIPS'20)
 
