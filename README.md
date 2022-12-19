@@ -67,13 +67,13 @@ tflite_path = download_tflite(net_id="mcunet-in3")
 To evaluate the accuracy of PyTorch `fp32` models, run:
 
 ```bash
-python eval_torch.py --net_id mcunet-in3 --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
+python eval_torch.py --net_id mcunet-in2 --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 To evaluate the accuracy of TF-Lite `int8` models, run:
 
 ```bash
-python eval_tflite.py --net_id mcunet-in3 --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
+python eval_tflite.py --net_id mcunet-in2 --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 ### Model List
