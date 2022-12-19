@@ -10,6 +10,7 @@ This is the official implementation of the MCUNet series.
 
 **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
+- **(2022/12)** We simplified the `net_id` of models (new version: `mcunet-in0`, `mcunet-vww1`, etc.) for an upcoming review paper (stay tuned!).
 - **(2022/10)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is highlighted on the [MIT homepage](http://web.mit.edu/spotlight/learning-edge/)!
 - **(2022/09)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is accepted to NeurIPS 2022! It enables tiny on-device training for IoT devices [[demo](https://www.youtube.com/watch?v=XaDCO8YtmBw)]. 
 - **(2022/08)** We release the source code of **TinyEngine** in [this repo](https://github.com/mit-han-lab/tinyengine). Please take a look!
@@ -54,10 +55,10 @@ from mcunet.model_zoo import net_id_list, build_model, download_tflite
 print(net_id_list)  # the list of models in the model zoo
 
 # pytorch fp32 model
-model, image_size, description = build_model(net_id="mcunet-320kB", pretrained=True)  # you can replace net_id with any other option from net_id_list
+model, image_size, description = build_model(net_id="mcunet-in3", pretrained=True)  # you can replace net_id with any other option from net_id_list
 
 # download tflite file to tflite_path
-tflite_path = download_tflite(net_id="mcunet-320kB")
+tflite_path = download_tflite(net_id="mcunet-in3")
 ```
 
 
@@ -66,13 +67,13 @@ tflite_path = download_tflite(net_id="mcunet-320kB")
 To evaluate the accuracy of PyTorch `fp32` models, run:
 
 ```bash
-python eval_torch.py --net_id mcunet-320kB --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
+python eval_torch.py --net_id mcunet-in3 --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 To evaluate the accuracy of TF-Lite `int8` models, run:
 
 ```bash
-python eval_tflite.py --net_id mcunet-320kB --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
+python eval_tflite.py --net_id mcunet-in3 --dataset {imagenet/vww} --data-dir PATH/TO/DATA/val
 ```
 
 ### Model List
@@ -86,24 +87,24 @@ The **ImageNet** model list:
 | net_id              | MACs   | #Params | SRAM  | Flash  | Top-1<br />(fp32/int8) | Top-5<br />(fp32/int8) |
 | ------------------- | ------ | ------- | ----- | ------ | ---------------------- | ---------------------- |
 | *# baseline models* |        |         |       |        |                        |                        |
-| mbv2-320kB          | 23.5M  | 0.75M   | 308kB | 862kB  | 49.7%/49.0%            | 74.6%/73.8%            |
-| proxyless-320kB     | 38.3M  | 0.75M   | 292kB | 892kB  | 57.0%/56.2%            | 80.2%/79.7%            |
+| mbv2-w0.35          | 23.5M  | 0.75M   | 308kB | 862kB  | 49.7%/49.0%            | 74.6%/73.8%            |
+| proxyless-w0.3      | 38.3M  | 0.75M   | 292kB | 892kB  | 57.0%/56.2%            | 80.2%/79.7%            |
 | *# mcunet models*   |        |         |       |        |                        |                        |
-| mcunet-10fps        | 6.4M   | 0.75M   | 266kB | 889kB  | 41.5%/40.4%            | 66.3%/65.2%            |
-| mcunet-5fps         | 12.8M  | 0.64M   | 307kB | 992kB  | 51.5%/49.9%            | 75.5%/74.1%            |
-| mcunet-256kB        | 67.3M  | 0.73M   | 242kB | 878kB  | 60.9%/60.3%            | 83.3%/82.6%            |
-| mcunet-320kB        | 81.8M  | 0.74M   | 293kB | 897kB  | 62.2%/61.8%            | 84.5%/84.2%            |
-| mcunet-512kB        | 125.9M | 1.73M   | 456kB | 1876kB | 68.4%/68.0%            | 88.4%/88.1%            |
+| mcunet-in0          | 6.4M   | 0.75M   | 266kB | 889kB  | 41.5%/40.4%            | 66.3%/65.2%            |
+| mcunet-in1          | 12.8M  | 0.64M   | 307kB | 992kB  | 51.5%/49.9%            | 75.5%/74.1%            |
+| mcunet-in2          | 67.3M  | 0.73M   | 242kB | 878kB  | 60.9%/60.3%            | 83.3%/82.6%            |
+| mcunet-in3          | 81.8M  | 0.74M   | 293kB | 897kB  | 62.2%/61.8%            | 84.5%/84.2%            |
+| mcunet-in4          | 125.9M | 1.73M   | 456kB | 1876kB | 68.4%/68.0%            | 88.4%/88.1%            |
 
 The **VWW** model list:
 
 *Note that the VWW dataset might be hard to prepare. You can download our pre-built `minival` set from [here](https://www.dropbox.com/s/bc7qi89ezra9711/vww-minival.tar?dl=0), around 380MB.*
 
-| net_id           | MACs  | #Params | SRAM  | Flash | Top-1<br />(fp32/int8) |
-| ---------------- | ----- | ------- | ----- | ----- | ---------------------- |
-| mcunet-10fps-vww | 6.0M  | 0.37M   | 146kB | 617kB | 87.4%/87.3%            |
-| mcunet-5fps-vww  | 11.6M | 0.43M   | 162kB | 689kB | 88.9%/88.9%            |
-| mcunet-320kB-vww | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
+| net_id      | MACs  | #Params | SRAM  | Flash | Top-1<br />(fp32/int8) |
+| ----------- | ----- | ------- | ----- | ----- | ---------------------- |
+| mcunet-vww0 | 6.0M  | 0.37M   | 146kB | 617kB | 87.4%/87.3%            |
+| mcunet-vww1 | 11.6M | 0.43M   | 162kB | 689kB | 88.9%/88.9%            |
+| mcunet-vww2 | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
 
 For TF-Lite `int8` models, we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
 
