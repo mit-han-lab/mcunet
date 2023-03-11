@@ -84,27 +84,27 @@ python eval_tflite.py --net_id mcunet-in2 --dataset {imagenet/vww} --data-dir PA
 
 The **ImageNet** model list:
 
-| net_id              | MACs   | #Params | SRAM  | Flash  | Top-1<br />(fp32/int8) | Top-5<br />(fp32/int8) |
-| ------------------- | ------ | ------- | ----- | ------ | ---------------------- | ---------------------- |
-| *# baseline models* |        |         |       |        |                        |                        |
-| mbv2-w0.35          | 23.5M  | 0.75M   | 308kB | 862kB  | 49.7%/49.0%            | 74.6%/73.8%            |
-| proxyless-w0.3      | 38.3M  | 0.75M   | 292kB | 892kB  | 57.0%/56.2%            | 80.2%/79.7%            |
-| *# mcunet models*   |        |         |       |        |                        |                        |
-| mcunet-in0          | 6.4M   | 0.75M   | 266kB | 889kB  | 41.5%/40.4%            | 66.3%/65.2%            |
-| mcunet-in1          | 12.8M  | 0.64M   | 307kB | 992kB  | 51.5%/49.9%            | 75.5%/74.1%            |
-| mcunet-in2          | 67.3M  | 0.73M   | 242kB | 878kB  | 60.9%/60.3%            | 83.3%/82.6%            |
-| mcunet-in3          | 81.8M  | 0.74M   | 293kB | 897kB  | 62.2%/61.8%            | 84.5%/84.2%            |
-| mcunet-in4          | 125.9M | 1.73M   | 456kB | 1876kB | 68.4%/68.0%            | 88.4%/88.1%            |
+| net_id              | MACs   | #Params | SRAM  | Flash  | Res. | Top-1<br />(fp32/int8) | Top-5<br />(fp32/int8) |
+| ------------------- | ------ | ------- | ----- | ------ | ---- | ---------------------- | ---------------------- |
+| *# baseline models* |        |         |       |        |      |                        |                        |
+| mbv2-w0.35          | 23.5M  | 0.75M   | 308kB | 862kB  | 144  | 49.7%/49.0%            | 74.6%/73.8%            |
+| proxyless-w0.3      | 38.3M  | 0.75M   | 292kB | 892kB  | 176  | 57.0%/56.2%            | 80.2%/79.7%            |
+| *# mcunet models*   |        |         |       |        |      |                        |                        |
+| mcunet-in0          | 6.4M   | 0.75M   | 266kB | 889kB  | 48   | 41.5%/40.4%            | 66.3%/65.2%            |
+| mcunet-in1          | 12.8M  | 0.64M   | 307kB | 992kB  | 96   | 51.5%/49.9%            | 75.5%/74.1%            |
+| mcunet-in2          | 67.3M  | 0.73M   | 242kB | 878kB  | 160  | 60.9%/60.3%            | 83.3%/82.6%            |
+| mcunet-in3          | 81.8M  | 0.74M   | 293kB | 897kB  | 176  | 62.2%/61.8%            | 84.5%/84.2%            |
+| mcunet-in4          | 125.9M | 1.73M   | 456kB | 1876kB | 160  | 68.4%/68.0%            | 88.4%/88.1%            |
 
 The **VWW** model list:
 
 *Note that the VWW dataset might be hard to prepare. You can download our pre-built `minival` set from [here](https://www.dropbox.com/s/bc7qi89ezra9711/vww-minival.tar?dl=0), around 380MB.*
 
-| net_id      | MACs  | #Params | SRAM  | Flash | Top-1<br />(fp32/int8) |
-| ----------- | ----- | ------- | ----- | ----- | ---------------------- |
-| mcunet-vww0 | 6.0M  | 0.37M   | 146kB | 617kB | 87.4%/87.3%            |
-| mcunet-vww1 | 11.6M | 0.43M   | 162kB | 689kB | 88.9%/88.9%            |
-| mcunet-vww2 | 55.8M | 0.64M   | 311kB | 897kB | 91.7%/91.8%            |
+| net_id      | MACs  | #Params | SRAM  | Flash | Resolution | Top-1<br />(fp32/int8) |
+| ----------- | ----- | ------- | ----- | ----- | ---------- | ---------------------- |
+| mcunet-vww0 | 6.0M  | 0.37M   | 146kB | 617kB | 64         | 87.4%/87.3%            |
+| mcunet-vww1 | 11.6M | 0.43M   | 162kB | 689kB | 80         | 88.9%/88.9%            |
+| mcunet-vww2 | 55.8M | 0.64M   | 311kB | 897kB | 144        | 91.7%/91.8%            |
 
 For TF-Lite `int8` models, we do not use quantization-aware training (QAT), so some results is slightly lower than paper numbers. 
 
