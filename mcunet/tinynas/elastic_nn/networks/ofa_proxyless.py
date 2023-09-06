@@ -179,7 +179,7 @@ class OFAProxylessNASNets(ProxylessNASNets):
         for stage_id, block_idx in enumerate(self.block_group_info):
             depth = self.runtime_depth[stage_id]
             active_idx = block_idx[:depth]
-            _str += "\n".join([self.blocks[idx].module_str for idx in active_idx])
+            _str += "\n".join([self.blocks[idx].module_str for idx in active_idx]) + '\n'
         if self.feature_mix_layer is not None:
             _str += self.feature_mix_layer.module_str + '\n'
         _str += self.classifier.module_str + '\n'
