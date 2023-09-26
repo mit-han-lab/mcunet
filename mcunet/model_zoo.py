@@ -64,7 +64,7 @@ NET_INFO = {
 
 net_id_list = list(NET_INFO.keys())
 
-url_base = "https://hanlab.mit.edu/projects/tinyml/mcunet/release/"
+url_base = "https://hanlab18.mit.edu/projects/tinyml/mcunet/release/"
 
 
 def build_model(net_id, pretrained=True):
