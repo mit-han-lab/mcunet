@@ -2,7 +2,7 @@
 
 This is the official implementation of the MCUNet series.
 
-###  [website](http://mcunet.mit.edu/) | [paper](https://arxiv.org/abs/2007.10319) | [paper (v2)](https://arxiv.org/abs/2110.15352) | [demo video](https://www.youtube.com/watch?v=F4XKn0iDfxg)
+###  [website](http://tinyml.mit.edu/) | [paper](https://arxiv.org/abs/2007.10319) | [paper (v2)](https://arxiv.org/abs/2110.15352) | [demo video](https://www.youtube.com/watch?v=F4XKn0iDfxg)
 
 ![demo](assets/figures/mcunet_demo.gif)
 
