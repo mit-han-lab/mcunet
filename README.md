@@ -2,7 +2,7 @@
 
 This is the official implementation of the MCUNet series.
 
-###  [website](http://tinyml.mit.edu/) | [paper](https://arxiv.org/abs/2007.10319) | [paper (v2)](https://arxiv.org/abs/2110.15352) | [demo video](https://www.youtube.com/watch?v=F4XKn0iDfxg)
+###  [TinyML Project Website](https://hanlab.mit.edu/projects/tinyml) | [MCUNetV1](https://hanlab.mit.edu/projects/mcunet) | [MCUNetV2](https://hanlab.mit.edu/projects/mcunetv2) | [MCUNetV3](https://hanlab.mit.edu/projects/mcunetv3)
 
 ![demo](assets/figures/mcunet_demo.gif)
 
@@ -10,9 +10,10 @@ This is the official implementation of the MCUNet series.
 
 **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
+- **(2024/03)** We release a [new demo video](https://www.youtube.com/watch?v=0pUFZYdoMY8) of [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472).
 - **(2022/12)** We simplified the `net_id` of models (new version: `mcunet-in0`, `mcunet-vww1`, etc.) for an upcoming review paper (stay tuned!).
 - **(2022/10)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is highlighted on the [MIT homepage](http://web.mit.edu/spotlight/learning-edge/)!
-- **(2022/09)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is accepted to NeurIPS 2022! It enables tiny on-device training for IoT devices [[demo](https://www.youtube.com/watch?v=XaDCO8YtmBw)]. 
+- **(2022/09)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is accepted to NeurIPS 2022! It enables tiny on-device training for IoT devices. 
 - **(2022/08)** We release the source code of **TinyEngine** in [this repo](https://github.com/mit-han-lab/tinyengine). Please take a look!
 - **(2022/08)** Our new course on **TinyML and Efficient Deep Learning** will be released soon in September 2022: [efficientml.ai](https://efficientml.ai/).
 - **(2022/07)** We also include the person detection model used in the video demo above. We will also include the deployment code in TinyEngine release. 
@@ -166,7 +167,7 @@ If you find the project helpful, please consider citing our paper:
 
 ## Related Projects
 
-[On-Device Training Under 256KB Memory](https://tinytraining.mit.edu) (NeurIPS'22)
+[On-Device Training Under 256KB Memory](https://hanlab.mit.edu/projects/mcunetv3) (NeurIPS'22)
 
 [TinyTL: Reduce Memory, Not Parameters for Efficient On-Device Learning](https://arxiv.org/abs/2007.11622) (NeurIPS'20)
 
