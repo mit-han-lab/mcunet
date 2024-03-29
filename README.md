@@ -11,6 +11,7 @@ This is the official implementation of the MCUNet series.
 **If you are interested in getting updates, please sign up [here](https://forms.gle/UW1uUmnfk1k6UJPPA) to get notified!**
 
 - **(2024/03)** We release a [new demo video](https://www.youtube.com/watch?v=0pUFZYdoMY8) of [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472).
+- **(2023/10)** [Tiny Machine Learning: Progress and Futures \[Feature\]](https://hanlab.mit.edu/projects/tinyml-magazine) appears at IEEE CAS Magazine.
 - **(2022/12)** We simplified the `net_id` of models (new version: `mcunet-in0`, `mcunet-vww1`, etc.) for an upcoming review paper (stay tuned!).
 - **(2022/10)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is highlighted on the [MIT homepage](http://web.mit.edu/spotlight/learning-edge/)!
 - **(2022/09)** Our new work [On-Device Training Under 256KB Memory](https://arxiv.org/abs/2206.15472) is accepted to NeurIPS 2022! It enables tiny on-device training for IoT devices. 
